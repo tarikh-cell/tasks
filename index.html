@@ -1,0 +1,189 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" link href="/static/index.css">
+
+        <title>Tasks App</title>
+    </head>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');</style>
+    <body>
+        <button class="toolbar_btn" onclick="document.getElementById('popup').showModal()"><img src="/static/assets/add.png" width="14px" height="14px" /> Add Task</button>
+        <button class="toolbar_btn" onclick="window.location.reload();"><img src="/static/assets/restart.png" width="14px" height="14px" /></button>
+        <button class="toolbar_btn" onclick="updateButtonImage()"><img id="view-icon" src="/static/assets/view-all.png" width="14px" height="14px" /></button>
+
+        <a class="toolbar_btn" href="https://github.com/tarikh-cell/tasks" target="_blank" rel="noopener noreferrer"><img src="/static/assets/github.png" width="14px" height="14px" /></a>
+
+
+        <dialog id="popup">
+            <button class="close_popup" onclick="document.getElementById('popup').close()">x</button>
+            <form action="." method="POST">
+                <div>
+                    <p>Title</p>
+                    <input name="title" placeholder="Enter a title" required minlength="1"></input>
+                </div>
+                <div>
+                    <p>Description</p>
+                    <input name="description" placeholder="Enter a description" required minlength="1"></input>
+                </div>
+                <div>
+                    <p for="status">Status:</p>
+                    <select name="status" id="status">
+                        <option value="READY">Ready</option>
+                        <option value="INPROGRESS">In Progress</option>
+                        <option value="COMPLETED">Completed</option>
+                    </select>
+                </div>
+                <div class="submit_div">
+                    <p> </p>
+                    <input type="submit" class="submit_btn" value="Submit" onclick="document.getElementById('popup').close()">
+                </div>
+            </form>
+        </dialog>
+
+        <dialog id="edit_pop">
+            <button class="close_popup" onclick="document.getElementById('edit_pop').close()">x</button>
+                <div>
+                    <p></p>
+                    <p>Title</p>
+                    <input id="edit_title" name="title" placeholder="Enter a title" required minlength="1"></input>
+                </div>
+                <div>
+                    <p>Description</p>
+                    <input id="edit_description" name="description" placeholder="Enter a description" required minlength="1"></input>
+                </div>
+                <div>
+                    <p for="status">Status:</p>
+                    <select id="edit_status" name="status">
+                        <option value="READY">Ready</option>
+                        <option value="INPROGRESS">In Progress</option>
+                        <option value="COMPLETED">Completed</option>
+                    </select>
+                </div>
+                <div class="submit_div">
+                    <button id="task_id" class="submit_btn" onclick="deleteTask()"><img src="/static/assets/delete.png" width="14px" height="14px" /> Delete</button>
+                    <input type="submit" class="submit_btn" onclick="updateTask()">
+                </div>
+        </dialog>
+
+        <div class="container">
+
+            <div class="task_column" id="READY">
+                <p class="column_header">Ready</p>
+                {% for task in tasks if task.status.name == "READY" %}
+                <div onclick="openEditPopup('{{ task.id }}','{{ task.title }}','{{ task.description }}','{{ task.status.name }}')" draggable="true" class="task_row task-container" data-id="{{ task.id }}" data-title="{{ task.title }}" data-description="{{ task.description }}" data-status="{{ task.status.name }}">
+                    <div style="display: flex; align-items: center; vertical-align: middle; padding: .5rem 0 0 .5rem;"><img src="/static/assets/user.png" width="16px" height="16px" /><p class="edit_title">{{ task.title }}</p></div>
+                    <div style="display: flex; align-items: center; vertical-align: middle; padding-left: .5rem;"><img src="user.png" width="16px" height="16px" style="opacity: 0;" /><p class="edit_sub_title">{{ task.status.name }}</p></div>
+                    <p class="edit_description">{{ task.description }}</p>
+
+                    <p class="edit_date"><img src="/static/assets/calendar.png" width="14px" height="14px" style="margin-right: .25rem;" /> {{ task.due_date.strftime("%A, %d %B %Y") }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="task_column" id="INPROGRESS">
+                <p class="column_header">In Progress</p>
+                {% for task in tasks if task.status.name == "INPROGRESS" %}
+                <div onclick="openEditPopup('{{ task.id }}','{{ task.title }}','{{ task.description }}','{{ task.status.name }}')" draggable="true" class="task_row task-container" data-id="{{ task.id }}" data-title="{{ task.title }}" data-description="{{ task.description }}" data-status="{{ task.status.name }}">
+                    <div style="display: flex; align-items: center; vertical-align: middle; padding: .5rem 0 0 .5rem;"><img src="/static/assets/user.png" width="16px" height="16px" /><p class="edit_title">{{ task.title }}</p></div>
+                    <div style="display: flex; align-items: center; vertical-align: middle; padding-left: .5rem;"><img src="user.png" width="16px" height="16px" style="opacity: 0;" /><p class="edit_sub_title">{{ task.status.name }}</p></div>
+                    <p class="edit_description">{{ task.description }}</p>
+                    <p class="edit_date"><img src="/static/assets/calendar.png" width="14px" height="14px" style="margin-right: .25rem;" /> {{ task.due_date.strftime("%A, %d %B %Y") }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="task_column" id="COMPLETED">
+                <p class="column_header">Completed</p>
+                {% for task in tasks if task.status.name == "COMPLETED" %}
+                <div onclick="openEditPopup('{{ task.id }}','{{ task.title }}','{{ task.description }}','{{ task.status.name }}')" draggable="true" class="task_row task-container" data-id="{{ task.id }}" data-title="{{ task.title }}" data-description="{{ task.description }}" data-status="{{ task.status.name }}">
+                    <div style="display: flex; align-items: center; vertical-align: middle; padding: .5rem 0 0 .5rem;"><img src="/static/assets/user.png" width="16px" height="16px" /><p class="edit_title">{{ task.title }}</p></div>
+                    <div style="display: flex; align-items: center; vertical-align: middle; padding-left: .5rem;"><img src="user.png" width="16px" height="16px" style="opacity: 0;" /><p class="edit_sub_title">{{ task.status.name }}</p></div>
+                    <p class="edit_description">{{ task.description }}</p>
+                    <p class="edit_date"><img src="/static/assets/calendar.png" width="14px" height="14px" style="margin-right: .25rem;" /> {{ task.due_date.strftime("%A, %d %B %Y") }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </body>
+    <script>
+        let view = "row";
+        function updateButtonImage() {
+            view = (view === "list") ? "row" : "list";
+            document.querySelectorAll('.task-container').forEach(container => {
+                container.className = `task-container task_${view}`;
+            });
+
+            const img = document.getElementById("view-icon");
+            img.src = (view === "list") ? "/static/assets/view-all.png" : "/static/assets/tiles.png";
+        }
+
+        async function deleteTask() {
+            var id = document.getElementById("task_id").value;
+            await fetch(`/${id}`, { method: "DELETE" });
+            location.reload();
+        }
+
+        async function updateTask() {
+            var id = document.getElementById("task_id").value;
+            var title = document.getElementById("edit_title").value;
+            var description = document.getElementById("edit_description").value;
+            var status = document.getElementById("edit_status").value;
+            await fetch(`/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: id, title: title, description: description, status: status })
+            });
+            location.reload();
+        }
+
+        function openEditPopup(id, title, description, status) {
+            // Show dialog
+            document.getElementById("edit_pop").showModal();
+
+            // Fill form fields
+            document.getElementById("task_id").value = id;
+            document.getElementById("edit_title").value = title;
+            document.getElementById("edit_description").value = description;
+            document.getElementById("edit_status").value = status;
+
+        }
+
+        const smallDivs = document.querySelectorAll('.task-container');
+        const containers = document.querySelectorAll('.task_column');
+        let draggedItem = null;
+        smallDivs.forEach(div => {
+            div.addEventListener('dragstart', e => {
+                draggedItem = div;
+                e.dataTransfer.effectAllowed = "move";
+            });
+        });
+        containers.forEach(container => {
+            container.addEventListener('dragover', e => {
+                e.preventDefault();
+            });
+
+            container.addEventListener('drop', e => {
+                e.preventDefault();
+                if(draggedItem) {
+                    container.appendChild(draggedItem);
+
+                    const id = draggedItem.dataset.id;
+                    const containerId = container.id;
+                    fetch(`/${id}`, {
+                        method: 'PUT',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({id: draggedItem.dataset.id, title: draggedItem.dataset.title, description: draggedItem.dataset.description, status: containerId})
+                    }).then(res => {
+                        location.reload();
+                    });
+
+                    draggedItem = null;
+                }
+            });
+        });
+    </script>
+</html>

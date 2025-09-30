@@ -1,0 +1,219 @@
+body {
+	background: #1e1e1e;
+	background: radial-gradient(circle at 50% 30%, #2a2a2a 0%, #131313 64%);
+}
+div, button, span, label, input, option, select, p {
+    font-family: 'Raleway';
+}
+dialog {
+    width: 20rem;
+    padding: 1.25rem 2rem;
+
+    border: 0px;
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+input {
+    width: 100%;
+}
+input, select {
+    padding: .75rem;
+    border: 0px;
+    border-radius: 4px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    color: #fff;
+    background-color: #000;
+}
+button {
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+}
+
+.toolbar_btn {
+    color: #fff;
+    padding: .5rem;
+    border: none;
+    backdrop-filter: blur(5px);
+    background-color: rgba(27, 38, 59, 0.23);
+    border-radius: 8px;
+    box-shadow: inset 0 1.01rem 0.2rem -1rem #fff0,
+		inset 0 -1.01rem 0.2rem -1rem #0000, 0 -1.02rem 0.2rem -1rem #fff0,
+		0 1rem 0.2rem -1rem #0000, 0 0 0 1px #fff3, 0 4px 4px 0 #0004, 0 0 0 1px #333;
+	margin-left: .5rem;
+}
+
+.task_column {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    min-height: 80vh;
+
+    margin: 1rem;
+    padding: 0px 1rem;
+
+    border-radius: 8px;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+    color: #fff;
+    background: radial-gradient(circle at 50% 0%, #3a3a3a 0%, #1a1a1a 64%);
+	box-shadow: inset 0 1.01rem 0.2rem -1rem #fff0,
+		inset 0 -1.01rem 0.2rem -1rem #0000, 0 -1.02rem 0.2rem -1rem #fff0,
+		0 1rem 0.2rem -1rem #0000, 0 0 0 1px #fff3, 0 4px 4px 0 #0004, 0 0 0 1px #333;
+}
+.column_header {
+    position: absolute;
+    top: -25px; backdrop-filter:
+    blur(5px);
+    padding: 0 .5rem;
+}
+
+#popup, #edit_pop {
+    display: flex;
+    flex-direction: column;
+
+    color: #fff;
+    border: 0.155rem solid transparent;
+    border-radius: 1.5rem;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+    box-shadow: inset 0 1.01rem 0.2rem -1rem #fff0,
+		inset 0 -1.01rem 0.2rem -1rem #0000, 0 -1.02rem 0.2rem -1rem #fff0,
+		0 1rem 0.2rem -1rem #0000, 0 0 0 1px #fff3, 0 4px 4px 0 #0004, 0 0 0 1px #333;
+
+    backdrop-filter: blur(5px);
+    background-color: rgba(27, 38, 59, 0.23);
+}
+.close_popup {
+    color: #fff;
+    text-align: right;
+    align-self: flex-end;
+
+    font-size: 24px;
+    border: none;
+    background-color: transparent;
+
+    cursor: pointer;
+}
+
+.submit_div {
+    display: flex;
+    width: 100%;
+}
+.submit_btn {
+    width: 7.5rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    padding: .5rem;
+
+    border: 0px;
+    border-radius: 4px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    color: #fff;
+    background-color: #000;
+
+    cursor: pointer;
+}
+
+/* Card  */
+.task_row, .task_list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: .5rem;
+    color: #fff;
+
+    height: 20%;
+    margin: 1rem;
+
+    border: 0.155rem solid transparent;
+    border-radius: 1.5rem;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; */
+    box-shadow: inset 0 1.01rem 0.2rem -1rem #fff0,
+		inset 0 -1.01rem 0.2rem -1rem #0000, 0 -1.02rem 0.2rem -1rem #fff0,
+		0 1rem 0.2rem -1rem #0000, 0 0 0 1px #fff3, 0 4px 4px 0 #0004, 0 0 0 1px #333;
+
+    backdrop-filter: blur(5px);
+    background-color: rgba(27, 38, 59, 0.23);
+
+    cursor: pointer;
+}
+.task_row {
+    width: 30%;
+}
+.task_list {
+    width: 90%;
+}
+
+.edit_title {
+    font-size: 12px;
+    margin: .5rem 0 0 .25rem;
+}
+.edit_sub_title {
+    margin: 0;
+    font-size: 10px;
+    padding-left: .25rem;
+    opacity: .5;
+}
+
+.edit_description {
+    height: 2.5rem;
+    width: 10rem;
+    font-size: 12px;
+    margin: .5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.edit_date {
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    vertical-align: middle;
+    color: #e0e1dd;
+
+    padding: 0px 4px;
+    opacity: 50%;
+}
+
+.edit_daysleft {
+    font-size: 12px;
+    margin-left: .25rem;
+}
+
+.edit_status {
+    width: fit-content;
+    color: #e0e1dd;
+    font-size: 12px;
+
+    padding: 5px 1rem;
+    border-radius: 1rem;
+
+    background-color: #415a77;
+}
+
+.edit_delete_btn {
+    border: none;
+    background-color: transparent;
+}
+
+.line_wrapper {
+    position: relative;
+    align-self: center;
+    width: 90%;
+    height: .25rem;
+    border-radius: 1rem;
+    background-color: #17202b;
+}
+.line {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: #e0e1dd;
+}
